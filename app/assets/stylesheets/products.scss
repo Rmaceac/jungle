@@ -64,6 +64,16 @@ main section.categories-show {
   }
 }
 
+.sold-out-badge {
+  background: #cf2424;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 5px 10px;
+  position: absolute;
+  top: 10px;
+  }
+
 main section.products-show {
 
   .product-detail {
