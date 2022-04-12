@@ -28,8 +28,15 @@ RSpec.describe User, type: :model do
       expect(user).to_not be_valid
     end
     it 'returns false when password and password confirmation do not match' do
-      user1 = User.new(name: "Ryan", email: "ryan@hotmail.com", password: "password", password_confirmation: "wordpass").save
-      expect(user1).to eq(false)
+      user = User.new(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "wordpass")
+      expect(user).to_not be_valid
+    end
+  end
+
+  context 'should have a minimum password length of 8 characters' do
+    it 'rejects a password that is too short' do
+      user = User.new(name: "Ryan", email: "example@hotmail.com", password: "pass", password_confirmation: "pass")
+      expect(user).to_not be_valid
     end
   end
   
