@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+
 RSpec.describe User, type: :model do
   
   it 'should create a user if all fields are provided' do
@@ -9,15 +10,14 @@ RSpec.describe User, type: :model do
 
   context 'should have a unique email address' do
     it 'returns false for exact double email' do
-      # @user
-      user2 = User.new(name: "Brian MacEachern", email: "ryan@hotmail.com").save
-      expect(user2).to eq(false)
+      user = User.new(name: "Brian MacEachern", email: "ryan@hotmail.com", password: "password", password_confirmation: "password")
+      expect(user).to_not be_valid
     end
 
     it 'returns false for case-insensitive double email' do
       User.new(name: "Ryan MacEachern", email: "ryan@hotmail.com").save
-      user2 = User.new(name: "Brian MacEachern", email: "RYAN@hotmail.COM").save
-      expect(user2).to eq(false)
+      user = User.new(name: "Brian MacEachern", email: "RYAN@hotmail.COM", password: "password", password_confirmation: "password")
+      expect(user).to_not be_valid
     end
   end
 
