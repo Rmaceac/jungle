@@ -38,6 +38,10 @@ RSpec.describe User, type: :model do
       user = User.new(name: "Ryan", email: "example@hotmail.com", password: "pass", password_confirmation: "pass")
       expect(user).to_not be_valid
     end
+    it 'accepts a password of 8 characters' do
+      user = User.new(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "password")
+      expect(user).to be_valid
+    end
   end
   
 
