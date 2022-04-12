@@ -3,21 +3,26 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   
+  before :each do
+    User.destroy_all
+  end
+  
   describe 'Validations' do
     it 'should create a user if all fields are provided' do
-      @user = User.new(name: "Ryan MacEachern", email: "ryan@hotmail.com", password: "password", password_confirmation: "password")
-      expect(@user).to be_truthy
+      user = User.new(name: "Ryan MacEachern", email: "ryan@hotmail.com", password: "password", password_confirmation: "password")
+      expect(user).to be_truthy
     end
 
     context 'should have a unique email address' do
       it 'returns false for exact double email' do
+        User.create!(name: "Ryan MacEachern", email: "ryan@hotmail.com", password: "password", password_confirmation: "password")
         user = User.new(name: "Brian MacEachern", email: "ryan@hotmail.com", password: "password", password_confirmation: "password")
         expect(user).to_not be_valid
         expect(user.errors.full_messages).to include("Email has already been taken")
       end
 
       it 'returns false for case-insensitive double email' do
-        User.new(name: "Ryan MacEachern", email: "ryan@hotmail.com").save
+        User.create!(name: "Ryan MacEachern", email: "ryan@hotmail.com", password: "password", password_confirmation: "password")
         user = User.new(name: "Brian MacEachern", email: "RYAN@hotmail.COM", password: "password", password_confirmation: "password")
         expect(user).to_not be_valid
         expect(user.errors.full_messages).to include("Email has already been taken")
@@ -51,10 +56,31 @@ RSpec.describe User, type: :model do
   describe '.authenticate_with_credentials' do
 
     it 'should login if user authentication is successful' do
-      user = User.create(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "password")
+      user = User.create!(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "password")
       logged_in_user = User.authenticate_with_credentials("example@hotmail.com", "password")
 
       expect(logged_in_user).to eq(user)
+    end
+
+    it 'should login successfully even with whitespace around email' do
+      user = User.create!(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "password")
+      logged_in_user = User.authenticate_with_credentials("    example@hotmail.com   ", "password")
+
+      expect(logged_in_user).to eq(user)
+    end
+
+    it 'should login successfully regardless of case' do
+      user = User.create!(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "password")
+      logged_in_user = User.authenticate_with_credentials("EXAMPLE@hotmail.COM", "password")
+
+      expect(logged_in_user).to eq(user)
+    end
+
+    it 'should NOT login if credentials are incorrect' do
+      user = User.create!(name: "Ryan", email: "example@hotmail.com", password: "password", password_confirmation: "password")
+      logged_in_user = User.authenticate_with_credentials("example@hotmail.com", "notmypassword")
+
+      expect(logged_in_user).to eq(nil)
     end
   end
 
