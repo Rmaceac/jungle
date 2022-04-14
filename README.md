@@ -16,14 +16,25 @@ A mini e-commerce application built with Rails 4.2 for purposes of teaching Rail
 ### The Home Page:
 ![Home Page](https://github.com/Rmaceac/jungle/blob/master/docs/screenshots/main%20page.png?raw=true)
 
+---------------------------------------------------------------------------------------------------------------------
+
 ### Product Details Page:
 ![Product Details Page](https://github.com/Rmaceac/jungle/blob/master/docs/screenshots/product%20details.png?raw=true)
+
+---------------------------------------------------------------------------------------------------------------------
+
 
 ### Viewing the Cart:
 ![Viewing the Cart](https://github.com/Rmaceac/jungle/blob/master/docs/screenshots/cart.png?raw=true)
 
+---------------------------------------------------------------------------------------------------------------------
+
+
 ### Products (Admin view) :
 ![Products (Admin view) ](https://github.com/Rmaceac/jungle/blob/master/docs/screenshots/admin_products.png?raw=true)
+
+---------------------------------------------------------------------------------------------------------------------
+
 
 ## Setup
 
